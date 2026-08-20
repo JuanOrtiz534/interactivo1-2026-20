@@ -1,0 +1,53 @@
+// Define el parámetro personalizado para el visualizador / Router
+const { visualid } = createParams('visualid')
+
+setcpm(15)
+
+// Melodía principal
+const pianoMelody = note(`[
+  [eb2,eb3] [gb3,bb3,eb4] [db2,db3] [f3,ab3,db4]
+  [eb2,eb3] [gb3,bb3,eb4] [db2,db3] [f3,ab3,db4]
+  [eb2,gb3,bb3,eb4] eb5 [db2,f3,ab3,db4] db5
+  [eb2,gb3,bb3,eb4] bb4 [db2,f3,ab3,db4]
+  [eb2,gb3,bb3,eb4] gb5 [db2,f3,ab3,db4] f5
+  [eb2,gb3,bb3,eb4] eb5 [db2,f3,ab3,db4]
+  [cb2,eb3,gb3,cb4] cb5 [bb1,d3,f3,bb3] bb4
+  [cb2,eb3,gb3,cb4] ab4 [bb1,d3,f3,bb3] g4
+  [ab1,c3,eb3,ab3] [c5,eb5] [bb1,d3,f3,bb3] [d5,f5]
+  [eb2,gb3,bb3,eb4] eb5 [db2,f3,ab3,db4] db5
+  [eb2,gb3,bb3,eb4] bb4 [db2,f3,ab3,db4]
+]`)
+  .s("piano")
+  .legato(1)
+  .visualid("piano_main")
+
+// Batería
+const drums = stack(
+  s("oh:1").beat("0,1,2,4,5,7,10,12,14",16).visualid("drum_oh"),
+  s("hh").beat("0,2,4,8,9,11,13,15",16).visualid("drum_hh"),
+  s("cp").beat("0,1,2,5,8,9,12,14",16).visualid("drum_cp"),
+  s("bd").beat("0,4,5,7,10,13",16).visualid("drum_bd")
+).bank("RolandTr909")
+  .gain(0.6)
+
+// Acordes de Piano Eléctrico
+const epiano = chord("E@4 F@4 Am@4 Am@4")
+  .voicing()
+  .s("gm_epiano1")
+  .gain(0.8)
+  .visualid("epiano")
+
+// Pad ambiental (corregido 'ed' por 'e3')
+const ambientPad = note("<[f3,g3,a4,c4] [a3,c3,d4,b4] [e3,b3,b2,a4] [g3,e4,g4,e4]>")
+  .sound("piano")
+  .attack(0.6)
+  .lpf(859.3)
+  .room(2)
+  .gain(0.6)
+  .visualid("ambient_pad")
+
+// Envío a la salida idéntico a tu ejemplo ($drums, $melody, etc.)
+$drums: stack(drums, drums.osc())
+$melody: stack(pianoMelody, pianoMelody.osc())
+$epiano: stack(epiano, epiano.osc())
+$pad: stack(ambientPad, ambientPad.osc())
