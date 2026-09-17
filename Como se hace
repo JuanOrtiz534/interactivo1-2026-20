@@ -1,0 +1,4 @@
+Strudel:
+Primero debes crear el codido de strudel a gusto pero agregando adiciones como ".visualid("piano_main")" y "$drums: stack(drums, drums.osc())" para que sea enviado a TouchDesigner,
+Esto sera enviado al port 8080.
+Posteriormente crea un
