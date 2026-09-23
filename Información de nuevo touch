@@ -1,0 +1,43 @@
+Codigo de Nuevo touch
+``` js
+const { visualid } = createParams('visualid')
+
+setcpm(32)
+
+const pianoMelody = note(`[ [b4,fs5] [d5,cs5] [b4,fs5] [d5,cs5] [d5,a5] [gs5,fs5] [e5,d5] [cs5,b4] ]`)
+  .s("piano")
+  .legato(1)
+  .visualid("piano_main")
+
+
+const drums = stack(
+  s("oh:1").beat("2,6,10,14", 16).visualid("drum_oh"),
+  s("hh").beat("0,2,4,6,8,10,12,14", 16).visualid("drum_hh"),
+  s("cp").beat("4,12", 16).visualid("drum_cp"),
+  s("bd").beat("0,3,7,8,10,13", 16).visualid("drum_bd")
+).bank("RolandTr909")
+  .gain(0.75)
+
+
+const epiano = note("<[b3,d4,fs4,a4] [cs4,e4,gs4,b4] [d4,fs4,a4,cs5] [fs3,a3,cs4,e4]>")
+  .s("gm_epiano1") 
+  .struct("x ~ x ~ x ~ x ~") 
+  .gain(0.8) 
+  .visualid("epiano")
+
+
+const ambientPad = note("<[b1 b1 ~ b1] [cs2 ~ cs2 ~] [d2 ~ d2 ~] [fs1 ~ fs1 ~]>")
+  .sound("sawtooth")
+  .attack(0.05)
+  .lpf(1100)
+  .decay(0.25)
+  .gain(0.7)
+  .visualid("ambient_pad")
+
+
+$drums: stack(drums, drums.osc())
+$melody: stack(pianoMelody, pianoMelody.osc())
+$epiano: stack(epiano, epiano.osc())
+$pad: stack(ambientPad, ambientPad.osc())
+
+``` 
