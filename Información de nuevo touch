@@ -5,7 +5,7 @@ const { visualid } = createParams('visualid')
 setcpm(32)
 
 const melodyPitch = slider(0, -12, 12, 1)  
-const melodyOn = slider(1, 0, 1, 1)        
+const melodyOn = slider(1, 0, 1, 1)       
 
 const pianoMelody = note(`[ [b4,fs5] [d5,cs5] [b4,fs5] [d5,cs5] [d5,a5] [gs5,fs5] [e5,d5] [cs5,b4] ]`)
   .add(note(melodyPitch))
@@ -34,8 +34,6 @@ const epiano = note("<[b3,d4,fs4,a4] [cs4,e4,gs4,b4] [d4,fs4,a4,cs5] [fs3,a3,cs4
   .gain(epianoOn) 
   .visualid("epiano")
 
-
-
 const padPitch = slider(0, -12, 12, 1)    
 const padOn = slider(0.7, 0, 1, 0.05)     
 
@@ -47,7 +45,6 @@ const ambientPad = note("<[b1 b1 ~ b1] [cs2 ~ cs2 ~] [d2 ~ d2 ~] [fs1 ~ fs1 ~]>"
   .decay(0.25)
   .gain(padOn)
   .visualid("ambient_pad")
-
 
 $drums: stack(drums, drums.osc())
 
